@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>BlockOps • Console</title>
+    <meta name="theme-color" content="#101713" />
+    <link rel="icon" href="/assets/icon.svg" />
+    <link
+      rel="preload"
+      href="/assets/fonts/manrope-variable.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="/" aria-label="BlockOps"
+        ><img src="/assets/icon.svg" alt="" width="36" height="36" /><span
+          class="brand-word"
+          >BlockOps</span
+        ></a
+      >
+      <div class="header-tools">
+        <button id="language" class="quiet language-button">
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <use href="/assets/lucide/sprite.svg#globe"></use></svg
+          ><span data-label>EN</span>
+        </button>
+        <button
+          id="theme"
+          class="quiet icon-button"
+          aria-label="Passer au thème clair"
+        >
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <use id="theme-icon" href="/assets/lucide/sprite.svg#sun"></use>
+          </svg>
+        </button>
+        <button id="logout" class="quiet logout-button" hidden>
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <use href="/assets/lucide/sprite.svg#log-out"></use></svg
+          ><span data-label>Quitter</span>
+        </button>
+      </div>
+    </header>
+    <main>
+      <section id="login" class="login-layout">
+        <div class="login-content">
+          <div class="eyebrow">CONTROL ROOM / SELF-HOSTED</div>
+          <h1>
+            <span id="login-first">Votre monde.</span><br /><span
+              id="login-second"
+              class="accent"
+              >En bonnes mains.</span
+            >
+          </h1>
+          <p class="lead">
+            <span id="login-copy"
+              >Supervisez votre serveur. Gardez une copie.</span
+            ><br /><span id="login-rest">Repartez sereinement.</span>
+          </p>
+          <form id="login-form" class="login-form">
+            <label for="username" id="username-label">Utilisateur local</label
+            ><input id="username" autocomplete="username" required />
+            <label for="password" id="password-label">Mot de passe</label
+            ><input
+              id="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            />
+            <button id="login-submit" class="primary">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="/assets/lucide/sprite.svg#arrow-right"></use></svg
+              ><span data-label>Ouvrir la console</span>
+            </button>
+          </form>
+          <div class="login-note">
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <use href="/assets/lucide/sprite.svg#key-round"></use>
+            </svg>
+            <p class="hint" id="login-hint">
+              Accès réservé aux utilisateurs de cette installation.
+            </p>
+          </div>
+          <a class="text-link" href="/landing" id="discover"
+            ><span data-label>Découvrir BlockOps</span
+            ><svg
+              class="icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <use href="/assets/lucide/sprite.svg#arrow-up-right"></use></svg
+          ></a>
+        </div>
+        <aside class="login-visual world-stage" aria-hidden="true">
+          <div class="world-float">
+            <img
+              src="/assets/world-floating.png"
+              alt=""
+              width="1536"
+              height="1024"
+            />
+            <span class="world-light world-light-cabin"></span>
+            <span class="world-light world-light-door"></span>
+            <span class="world-light world-light-water"></span>
+          </div>
+        </aside>
+      </section>
+      <div id="console" hidden>
+        <div class="intro">
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>CONTROL ROOM / 01
+            </div>
+            <h1 id="title">Vue d’ensemble</h1>
+            <p id="subtitle">Moins de surveillance. Plus de jeu.</p>
+          </div>
+          <span class="environment" id="mode">SELF-HOSTED</span>
+        </div>
+        <div id="notice" role="status" class="notice" hidden>
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <use href="/assets/lucide/sprite.svg#flask-conical"></use></svg
+          ><span data-label></span>
+        </div>
+        <div id="feedback" role="status" class="feedback" hidden>
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <use href="/assets/lucide/sprite.svg#circle-check"></use></svg
+          ><span data-label></span>
+        </div>
+        <section class="server-card" aria-labelledby="server-name">
+          <div class="server-glyph" aria-hidden="true">
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <use href="/assets/lucide/sprite.svg#server"></use>
+            </svg>
+          </div>
+          <div class="server-info">
+            <div class="eyebrow" id="server-label">SERVEUR DOCKER</div>
+            <h2 id="server-name">Connexion…</h2>
+            <div class="server-meta">
+              <span id="status" class="pill"
+                ><svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <use
+                    id="status-icon"
+                    href="/assets/lucide/sprite.svg#clock-3"
+                  ></use></svg
+                ><span data-label>Chargement</span></span
+              ><span class="role-badge"
+                ><svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <use href="/assets/lucide/sprite.svg#key-round"></use></svg
+                ><span id="role-label">Accès local</span></span
+              >
+            </div>
+          </div>
+          <div
+            id="server-actions"
+            class="actions"
+            aria-label="Cycle de vie du serveur"
+          >
+            <button id="start" class="" data-action="start">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="/assets/lucide/sprite.svg#play"></use></svg
+              ><span data-label>Démarrer</span>
+            </button>
+            <button id="restart" class="" data-action="restart">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="/assets/lucide/sprite.svg#rotate-cw"></use></svg
+              ><span data-label>Redémarrer</span>
+            </button>
+            <button id="stop" class="danger" data-action="stop">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="/assets/lucide/sprite.svg#square"></use></svg
+              ><span data-label>Arrêter</span>
+            </button>
+          </div>
+        </section>
+        <div class="metrics">
+          <section>
+            <div class="metric-heading">
+              <div class="metric-symbol">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <use href="/assets/lucide/sprite.svg#users"></use>
+                </svg>
+              </div>
+              <div class="eyebrow" id="players-label">
+                JOUEURS • LOGS RÉCENTS
+              </div>
+            </div>
+            <div class="metric" id="players">—</div>
+            <p id="player-note">Estimation à partir des connexions récentes.</p>
+          </section>
+          <section>
+            <div class="metric-heading">
+              <div class="metric-symbol">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <use href="/assets/lucide/sprite.svg#archive"></use>
+                </svg>
+              </div>
+              <div class="eyebrow" id="copies-label">COPIES CONSERVÉES</div>
+            </div>
+            <div class="metric" id="copies">—</div>
+            <p id="copy-note">Une copie locale, un départ plus sûr.</p>
+          </section>
+          <section>
+            <div class="metric-heading">
+              <div class="metric-symbol">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <use href="/assets/lucide/sprite.svg#shield-check"></use>
+                </svg>
+              </div>
+              <div class="eyebrow" id="rule-label">RESTART PRUDENT</div>
+            </div>
+            <div class="metric small" id="rule">—</div>
+            <p id="rule-note">3 observations · 2 tentatives / heure</p>
+          </section>
+        </div>
+        <div class="columns">
+          <section class="panel recovery-panel">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">RECOVERY</div>
+                <h2 id="backup-title">Vos points de retour</h2>
+              </div>
+              <button id="backup" class="primary" data-action="backup">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <use
+                    href="/assets/lucide/sprite.svg#hard-drive-download"
+                  ></use></svg
+                ><span data-label>Créer une copie</span>
+              </button>
+            </div>
+            <p class="section-copy" id="backup-note">
+              Copie cohérente : serveur arrêté pendant la sauvegarde.
+              Restauration : serveur laissé arrêté.
+            </p>
+            <div id="backups" class="backup-list"></div>
+            <div class="panel-foot">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="/assets/lucide/sprite.svg#lock-keyhole"></use></svg
+              ><span id="storage-note"
+                >Copies sur votre hôte · pas de stockage distant</span
+              >
+            </div>
+          </section>
+          <section class="panel settings-panel">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">AUTOMATION</div>
+                <h2 id="settings-title">Le rythme qui vous convient</h2>
+              </div>
+              <svg
+                class="icon section-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="/assets/lucide/sprite.svg#sliders-horizontal"></use>
+              </svg>
+            </div>
+            <form id="settings">
+              <div class="field-pair">
+                <div>
+                  <label for="interval" id="interval-label"
+                    >Intervalle (heures)</label
+                  ><input
+                    id="interval"
+                    type="number"
+                    min="1"
+                    max="168"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="retention" id="retention-label"
+                    >Copies (2–30)</label
+                  ><input
+                    id="retention"
+                    type="number"
+                    min="2"
+                    max="30"
+                    required
+                  />
+                </div>
+              </div>
+              <label class="check"
+                ><input id="auto" type="checkbox" /><span id="auto-label"
+                  >Redémarrer après un crash</span
+                ></label
+              >
+              <p class="hint" id="auto-note">
+                Jamais après un arrêt volontaire. Désactivé par défaut.
+              </p>
+              <button id="save" class="">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <use href="/assets/lucide/sprite.svg#check"></use></svg
+                ><span data-label>Enregistrer les règles</span>
+              </button>
+            </form>
+          </section>
+        </div>
+        <section class="panel journal-panel">
+          <div class="section-head">
+            <div class="section-title">
+              <svg
+                class="icon section-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="/assets/lucide/sprite.svg#square-terminal"></use>
+              </svg>
+              <div>
+                <div class="eyebrow">LIVE TAIL / 150 LINES</div>
+                <h2 id="logs-title">Le journal du serveur</h2>
+              </div>
+            </div>
+            <span class="live"
+              ><svg
+                class="icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="/assets/lucide/sprite.svg#clock-3"></use></svg
+              ><span id="refresh-note">Actualisé toutes les 10 s</span></span
+            >
+          </div>
+          <pre id="logs" tabindex="0" aria-label="Journal du serveur">
+Connexion au proxy…</pre>
+        </section>
+        <section class="panel activity-panel">
+          <div class="section-title">
+            <svg
+              class="icon section-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <use href="/assets/lucide/sprite.svg#bell"></use>
+            </svg>
+            <div>
+              <div class="eyebrow">LOCAL ACTIVITY</div>
+              <h2 id="alerts-title">À garder à l’œil</h2>
+            </div>
+          </div>
+          <div id="alerts"></div>
+        </section>
+      </div>
+      <div id="error" role="alert" class="error-message" hidden>
+        <svg
+          class="icon"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <use href="/assets/lucide/sprite.svg#circle-alert"></use></svg
+        ><span data-label></span>
+      </div>
+    </main>
+    <footer>
+      <div class="footer-signature">
+        <img src="/assets/mark.svg" alt="" width="22" height="22" />BlockOps
+        0.1.0
+      </div>
+      <span>YOUR SERVER. LESS BABYSITTING.</span
+      ><a href="/landing">Self-hosted · Privacy · Support</a>
+    </footer>
+    <dialog id="confirm">
+      <form method="dialog">
+        <div class="dialog-symbol">
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <use href="/assets/lucide/sprite.svg#circle-alert"></use>
+          </svg>
+        </div>
+        <div class="eyebrow">OPERATION CHECK</div>
+        <h2 id="confirm-title">Confirmer l’opération</h2>
+        <p id="confirm-text"></p>
+        <div class="dialog-actions">
+          <button id="cancel" class="" value="cancel">
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <use href="/assets/lucide/sprite.svg#x"></use></svg
+            ><span data-label>Annuler</span></button
+          ><button id="confirm-btn" class="primary" value="confirm">
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <use href="/assets/lucide/sprite.svg#check"></use></svg
+            ><span data-label>Confirmer</span>
+          </button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

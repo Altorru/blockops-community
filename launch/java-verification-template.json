@@ -1,0 +1,35 @@
+{
+  "status": "not_executed",
+  "owner_authorization_reference": null,
+  "target": {
+    "dedicated_disposable_environment": null,
+    "container_name": null,
+    "world_path": null,
+    "independent_backup_path": null,
+    "java_version": null,
+    "minecraft_version": null,
+    "jar_or_image_sha256": null,
+    "eula_already_accepted_by_owner": null,
+    "restart_policy_disabled": null,
+    "private_network": null
+  },
+  "checks": {
+    "real_java_status_before": false,
+    "graceful_save_stop_no_137": false,
+    "backup_archive_sha256": null,
+    "all_restored_file_hashes_match": false,
+    "no_extra_restored_files": false,
+    "safety_copy_present": false,
+    "restore_leaves_stopped": false,
+    "java_boot_after_restore": false,
+    "no_world_load_errors": false,
+    "viewer_csrf_bearer_allowlist_checked": false,
+    "player_visual_check": "not_performed"
+  },
+  "timings_seconds": {"boot": null, "backup": null, "restore": null, "unavailable": null},
+  "support_minutes": null,
+  "evidence_paths": [],
+  "incidents": [],
+  "executed_at": null,
+  "notes": "Preparation template only. Synthetic fixture evidence does not count as real Java validation."
+}

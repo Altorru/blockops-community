@@ -1,5 +1,6 @@
 .env
 .env.*
+!.env.example
 secrets/
 state/
 world/
@@ -13,3 +14,6 @@ __pycache__/
 *.jar
 *.apk
 *.aab
+evidence/
+dist/
+.mypy_cache/

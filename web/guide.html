@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sauvegarder et restaurer un serveur Minecraft Docker — BlockOps</title>
+  <meta name="description" content="Aperçu de la console locale BlockOps et parcours de sauvegarde/restauration sur un serveur Minecraft Java Docker de test. Limites du candidat et essai pilote gratuit." />
+  <link rel="canonical" href="https://blockops.altorru.fr/guide.html" />
+  <link rel="icon" href="/assets/icon.svg" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="app-header"><a class="brand" href="/"><img src="/assets/icon.svg" alt="" width="36" height="36" /><span class="brand-word">BlockOps</span></a><a href="#pilote">Essai pilote</a></header>
+  <main>
+    <section class="panel">
+      <div class="eyebrow">GUIDE / CONSOLE LOCALE</div>
+      <h1>Sauvegarder votre monde. Vérifier le retour.</h1>
+      <p>BlockOps est un candidat gratuit pour superviser un seul serveur Minecraft
+        Java Docker et gérer ses sauvegardes locales. La console s’installe chez
+        vous. Cette page présente son fonctionnement ; elle n’exécute aucune commande.</p>
+      <p>La recette actuelle utilise un Docker Engine simulé et un statut Java
+        synthétique. La compatibilité avec un vrai serveur Java reste à vérifier
+        sur une cible jetable autorisée. Aucun service cloud ni achat disponible.</p>
+    </section>
+    <section class="panel" aria-labelledby="preview-title">
+      <h2 id="preview-title">Un aperçu de la console, sans accès à votre serveur</h2>
+      <p>Capture d’une fixture locale de test : données simulées, aucune session
+        publique et aucun serveur Minecraft réel. Les boutons de cette image ne sont pas interactifs.</p>
+      <img class="guide-preview" src="/assets/console-preview.jpg" alt="Capture de la console locale de test : état de la fixture, copies conservées, commandes et restauration. Les données sont simulées." width="1280" height="2288" loading="lazy" />
+    </section>
+    <section class="panel">
+      <h2>Le parcours de sauvegarde et de restauration</h2>
+      <ol>
+        <li><strong>Préparer un test isolé.</strong> Utiliser un conteneur et un monde
+          jetables autorisés, avec une copie indépendante. Garder l’agent privé et
+          la console sur localhost ou un tunnel SSH. L’EULA doit avoir été acceptée par le propriétaire.</li>
+        <li><strong>Créer une copie.</strong> Le serveur est arrêté pendant la
+          sauvegarde ; les joueurs sont déconnectés. Un arrêt non confirmé ou un
+          kill forcé entraîne un refus de sauvegarde. Inspecter les logs avant de reprendre.</li>
+        <li><strong>Restaurer sur le monde de test.</strong> Arrêter volontairement,
+          confirmer la restauration et contrôler la copie de sécurité. Le serveur
+          reste arrêté après la restauration.</li>
+        <li><strong>Vérifier tous les fichiers.</strong> Comparer leurs empreintes
+          à l’archive avant de redémarrer, puis vérifier le statut Java et les logs.
+          Ne jamais modifier level.dat ou un fichier de région comme du texte.</li>
+      </ol>
+      <p>Les copies sont locales et non chiffrées. Une panne de l’hôte peut perdre
+        le monde et ses sauvegardes : conserver une copie indépendante. Prévoir
+        l’espace pour l’archive, l’extraction, la copie de sécurité et le rollback.</p>
+    </section>
+    <section class="panel" id="pilote">
+      <h2>Participer à un essai pilote gratuit</h2>
+      <p>Cinq places de test prévues, aucun opérateur recruté à ce jour. Le paquet
+        candidat et son empreinte sont remis en privé après accord sur une cible
+        de test. Aucun monde de production, secret ou log de joueur à transmettre.</p>
+      <p>Nous mesurons le temps d’installation, la réussite d’une copie et d’une
+        restauration, les incidents et les minutes d’assistance. Aucune durée
+        d’installation garantie, aucun abonnement à souscrire.</p>
+      <p><strong>Paquet Community gratuit remis en privé :</strong> logiciel,
+        guide d’installation, fixture sans Minecraft, préflight de cible et
+        contrôle des fichiers restaurés, avec empreinte SHA-256. Les cinq places
+        sont un objectif de test, pas une preuve de compatibilité.</p>
+      <p>Pour un premier contact, indiquez votre système, la version de Docker,
+        si vous disposez d’une cible jetable et si son EULA est déjà acceptée.
+        N’envoyez ni monde, ni secret, ni log contenant des joueurs.</p>
+      <p><a href="mailto:contact@hugoviaud.fr?subject=BlockOps%20%E2%80%94%20essai%20pilote">Demander les informations pour un essai pilote</a>.</p>
+    </section>
+    <section class="panel">
+      <h2>Questions fréquentes</h2>
+      <h3>Est-ce une console Minecraft accessible sur ce site ?</h3>
+      <p>Non. Le site est une vitrine et un guide. La console et son agent restent sur votre hôte privé.</p>
+      <h3>Est-ce compatible avec mon serveur ?</h3>
+      <p>La cible est Minecraft Java dans Docker. La validation sur un vrai serveur
+        reste en attente ; aucune compatibilité Bedrock, modpack ou plugin n’est annoncée.</p>
+      <h3>Combien coûte BlockOps ?</h3>
+      <p>Le self-hosted est gratuit sous MIT. Votre hôte, stockage et maintenance
+        restent à votre charge. L’offre cloud est une hypothèse, sans paiement disponible.</p>
+      <h3>Puis-je essayer sans risquer mon monde ?</h3>
+      <p>Commencer avec la fixture sans Minecraft, puis une copie de test autorisée.
+        La fixture démontre les opérations de fichiers ; elle ne prouve pas une sauvegarde Minecraft réelle.</p>
+    </section>
+  </main>
+  <footer><a href="/">Accueil</a><a href="/#mentions-legales">Mentions éditeur</a><a href="mailto:contact@hugoviaud.fr">Support</a></footer>
+</body>
+</html>

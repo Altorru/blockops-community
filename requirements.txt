@@ -1,0 +1,4 @@
+# Server List Ping. Apache 2.0. Versions verified in the Docker build.
+mcstatus==14.2.0
+asyncio-dgram==3.0.0
+dnspython==2.8.0

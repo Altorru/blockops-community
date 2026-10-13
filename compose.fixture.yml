@@ -1,0 +1,56 @@
+name: blockops-qa
+services:
+  fixture:
+    image: python:3.13-alpine
+    user: "${BLOCKOPS_UID:-1000}:${BLOCKOPS_GID:-1000}"
+    container_name: blockops-fixture
+    command: [python, /fixture.py]
+    volumes:
+      - ./scripts/fixture.py:/fixture.py:ro
+      - ./scripts/status_fixture.py:/status_fixture.py:ro
+      - ./world:/world
+    restart: "no"
+    networks: [private]
+    logging:
+      options: {max-size: "2m", max-file: "2"}
+  agent:
+    build: .
+    command: [python, -m, blockops.agent]
+    environment:
+      AGENT_BIND: 0.0.0.0
+      BLOCKOPS_CONTAINER: blockops-fixture
+      MC_HOST: fixture
+      MC_PORT: 25565
+      AGENT_TOKEN_FILE: /run/secrets/agent-token
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./secrets/agent-token:/run/secrets/agent-token:ro
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [private]
+  console:
+    build: .
+    user: "${BLOCKOPS_UID:-1000}:${BLOCKOPS_GID:-1000}"
+    environment:
+      BIND: 0.0.0.0
+      AGENT_URL: http://agent:8218
+      AGENT_TOKEN_FILE: /run/secrets/agent-token
+      USERS_FILE: /run/secrets/users.json
+      WORLD_PATH: /world
+      BACKUP_PATH: /backups
+      FIXTURE: "true"
+    volumes:
+      - ./secrets:/run/secrets:ro
+      - ./world:/world
+      - ./backups:/backups
+    ports: ["127.0.0.1:4218:4218"]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    depends_on: [agent, fixture]
+    networks: [private, ui]
+networks:
+  ui: {}
+  private:
+    internal: true

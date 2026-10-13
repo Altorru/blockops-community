@@ -1,7 +1,6 @@
 # Validation Java réelle — plan, non exécuté
 
-Cette présentation ne contient pas les outils runtime. Les commandes ci-dessous
-s’exécutent dans une copie privée fraîche du candidat Community téléchargé,
+Les commandes ci-dessous s’exécutent dans une copie fraîche de Community,
 sur l’hôte d’une cible **jetable déjà autorisée**. Aucun serveur à créer et aucun
 EULA à accepter automatiquement.
 

@@ -1,0 +1,6 @@
+slot,status,operator_code,consent_date,package_sha256,installation_success,installation_minutes,first_backup_success,restore_success,restore_minutes,incident_count,support_minutes,cloud_requested,price_feedback,notes
+1,not_enrolled,,,,,,,,,,,,,
+2,not_enrolled,,,,,,,,,,,,,
+3,not_enrolled,,,,,,,,,,,,,
+4,not_enrolled,,,,,,,,,,,,,
+5,not_enrolled,,,,,,,,,,,,,

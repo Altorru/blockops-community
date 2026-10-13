@@ -1,0 +1,45 @@
+name: blockops
+services:
+  agent:
+    build: .
+    command: [python, -m, blockops.agent]
+    environment:
+      MC_HOST: ${MC_HOST:-}
+      MC_PORT: ${MC_PORT:-25565}
+      AGENT_BIND: 0.0.0.0
+      BLOCKOPS_CONTAINER: ${BLOCKOPS_CONTAINER:?Set exact authorized target container name}
+      AGENT_TOKEN_FILE: /run/secrets/agent-token
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./secrets/agent-token:/run/secrets/agent-token:ro
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+    networks: [private]
+  console:
+    build: .
+    user: "${BLOCKOPS_UID:-1000}:${BLOCKOPS_GID:-1000}"
+    environment:
+      BIND: 0.0.0.0
+      AGENT_URL: http://agent:8218
+      AGENT_TOKEN_FILE: /run/secrets/agent-token
+      USERS_FILE: /run/secrets/users.json
+      WORLD_PATH: /world
+      BACKUP_PATH: /backups
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+    volumes:
+      - ./secrets:/run/secrets:ro
+      - ${WORLD_PATH:?Set existing world path}:/world
+      - ./backups:/backups
+    ports: ["127.0.0.1:4218:4218"]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+    depends_on: [agent]
+    networks: [private, ui]
+networks:
+  ui: {}
+  private:
+    internal: true

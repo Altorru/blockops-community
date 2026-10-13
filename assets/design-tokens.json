@@ -1,0 +1,63 @@
+{
+  "brand": "BlockOps",
+  "concept": "world and backup",
+  "typography": {
+    "ui": "Manrope variable 200–800; bundled locally",
+    "code": "ui-monospace, monospace",
+    "numbers": "tabular-nums"
+  },
+  "dark": {
+    "background": "#101713",
+    "surface": "#19211C",
+    "raised": "#242E26",
+    "text": "#F4F6F1",
+    "muted": "#B3BEB0",
+    "border": "#364137",
+    "primary": "#D1ED83",
+    "onPrimary": "#1B2612",
+    "danger": "#FFB4A5",
+    "warning": "#E8CF9B",
+    "subtle": "#8B9A88",
+    "primarySoft": "#29351E",
+    "dangerSoft": "#35251F",
+    "warningSoft": "#26261D"
+  },
+  "light": {
+    "background": "#F4F5EF",
+    "surface": "#FFFFFF",
+    "raised": "#EDF0E7",
+    "text": "#18201C",
+    "muted": "#53604F",
+    "border": "#C7D0BF",
+    "primary": "#496C16",
+    "onPrimary": "#FFFFFF",
+    "danger": "#A63725",
+    "warning": "#725320",
+    "subtle": "#5E6C59",
+    "primarySoft": "#EAF0DE",
+    "dangerSoft": "#FFF1ED",
+    "warningSoft": "#F6F1E5"
+  },
+  "radius": {
+    "panel": 16,
+    "button": 9,
+    "iconTile": 13
+  },
+  "icons": {
+    "library": "lucide-static",
+    "version": "1.52.0",
+    "viewBox": 24,
+    "stroke": 1.8,
+    "sizes": [
+      13,
+      17,
+      19,
+      22,
+      32
+    ],
+    "delivery": "local SVG sprite; no CDN",
+    "accessibility": "decorative aria-hidden, button accessible name on parent"
+  },
+  "touchTarget": 44,
+  "source": "web/style.css"
+}

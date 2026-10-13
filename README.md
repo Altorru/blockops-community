@@ -3,9 +3,10 @@
 BlockOps accompagne la supervision et les sauvegardes locales d’un petit serveur
 Minecraft Java Docker. Community est gratuit sous licence MIT.
 
-Ce dépôt préparé contient uniquement une présentation, une capture de démonstration
-et le protocole de validation. Il ne contient ni console exécutable, ni agent,
-ni accès Docker, ni historique du dépôt de développement. Le dépôt GitHub public est séparé du dépôt de développement privé.
+Ce dépôt contient le runtime gratuit Community : console locale, agent Docker
+mono-cible, fixture simulée, tests et documentation. L’historique de développement,
+les données et secrets ne sont pas inclus. Aucun service d’administration n’est
+exposé par GitHub. Le dépôt public est séparé du dépôt de développement privé.
 
 ## Démonstration
 
@@ -17,8 +18,8 @@ ou script n’est nécessaire pour cette démonstration.
 
 [Téléchargement Community et checksum](https://blockops.altorru.fr/guide.html#telechargement).
 Vérifier SHA256SUMS avant extraction dans un dossier neuf, puis suivre le README
-de l’archive. Cette archive applicative distincte contient le runtime local ;
-elle n’est pas incluse dans cet export GitHub de présentation.
+de l’archive. Le code de ce dépôt reprend le runtime exact de ce candidat, avec documentation
+actualisée et sans fichiers de déploiement internes.
 
 La console et l’agent s’installent sur votre hôte privé. Les sauvegardes sont
 locales et non chiffrées ; conserver une copie indépendante du monde. La socket
@@ -47,8 +48,8 @@ exportés individuellement ; aucun historique Git n’est inclus.
 
 ## Quickstart / English
 
-This repository is a static Community presentation and simulated screenshot,
-not the executable management console or Docker agent. Open `demo/index.html`
+This repository includes the free Community console, Docker agent, tests and
+simulated fixture. GitHub does not expose an administration service. Open `demo/index.html`
 directly, or serve this folder using Python 3:
 
 ```sh
@@ -65,3 +66,30 @@ Real Java backup/restore is not validated yet. It requires an identified,
 authorized disposable target and an EULA already accepted by its owner.
 Local backups are unencrypted; keep an independent copy. No hosted plan or
 payment is available. See VALIDATION.md, NOTICE.md and SECURITY.md.
+
+## Premier essai du produit / Product quickstart
+
+Prérequis : Python 3.12+ et Docker Engine/Compose pour la fixture Docker.
+Dans une copie fraîche du dépôt, jamais un dossier monde existant :
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python scripts/seed_fixture.py
+export BLOCKOPS_UID=$(id -u) BLOCKOPS_GID=$(id -g)
+docker compose -f compose.fixture.yml up -d --build
+.venv/bin/python scripts/verify_fixture.py
+```
+
+Ouvrir http://127.0.0.1:4218. Compte de test `qa`, mot de passe généré dans
+`secrets/qa-password` ; ne pas le publier ni le réutiliser. Arrêter uniquement
+cette stack avec `docker compose -f compose.fixture.yml down` ; les fichiers
+de fixture restent locaux. Aucun serveur Minecraft ni EULA dans cet essai.
+
+The Docker fixture is synthetic, not Minecraft. Use a fresh folder and the
+generated local test credentials. The simulation recipe can also run without
+Docker; see [INSTALLATION.md](INSTALLATION.md). Actual Java setup requires the
+[validation gate](VALIDATION.md) and an already authorized disposable target.
+The current Docker build and real Java compatibility remain unverified; the
+standalone simulated Engine and file lifecycle recipe has passed.
