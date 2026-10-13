@@ -31,8 +31,9 @@ confiance, pas au multitenant public.
 Les recettes isolées utilisent un Engine simulé et un statut Java synthétique.
 Elles vérifient des opérations de fichiers, l’authentification et les refus de
 commandes. Elles ne prouvent pas une sauvegarde cohérente de Minecraft réel.
-La recette Java réelle reste à exécuter sur une cible jetable autorisée avec EULA
-acceptée préalablement par son propriétaire : voir [VALIDATION.md](VALIDATION.md).
+La recette Java réelle est différée par décision du propriétaire du 13 octobre
+2026. Aucune cible ni intervention terrain n’est demandée. Le protocole est
+conservé pour une éventuelle reprise explicite : [VALIDATION.md](VALIDATION.md).
 
 Le cloud et le paiement ne sont pas disponibles. Aucun opérateur humain ni
 revenu n’est annoncé. BlockOps ne fournit pas de serveur Minecraft et n’accepte
@@ -62,7 +63,9 @@ The existing [public demo and download page](https://blockops.altorru.fr/guide.h
 clearly marks simulated data. Get the separate free MIT runtime candidate there,
 verify its SHA256SUMS, then follow its included README in a fresh private folder.
 
-Real Java backup/restore is not validated yet. It requires an identified,
+Real Java backup/restore is not validated and was deferred by the owner on
+13 October 2026. No target request or field test is active. A future explicitly
+authorized restart would require an identified,
 authorized disposable target and an EULA already accepted by its owner.
 Local backups are unencrypted; keep an independent copy. No hosted plan or
 payment is available. See VALIDATION.md, NOTICE.md and SECURITY.md.

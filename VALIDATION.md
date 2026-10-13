@@ -1,5 +1,14 @@
 # Validation Java réelle — plan, non exécuté
 
+## Décision propriétaire — 13 octobre 2026
+
+La recette Java réelle et la cible jetable locale sont différées. Aucun
+serveur Minecraft à créer, aucune EULA à accepter, aucune demande de cible
+ou travail terrain à relancer. Community public et preuves simulées conservés.
+Java réel reste non validé. Le protocole ci-dessous reste une référence pour
+une éventuelle reprise explicitement demandée ; aucune action n’est attendue.
+
+
 Les commandes ci-dessous s’exécutent dans une copie fraîche de Community,
 sur l’hôte d’une cible **jetable déjà autorisée**. Aucun serveur à créer et aucun
 EULA à accepter automatiquement.
