@@ -1,0 +1,19 @@
+{
+  "files_sha256": {
+    ".gitignore": "dc04005ab34480e9ce0ab356b8d9fa785257aa2a6fcd57118521e58cb335a4de",
+    "CONTRIBUTING.md": "c920a9a28da06c37a23bd6832bb2fec6ec809e03cdc154923e19c1f7806db011",
+    "LICENSE": "ffe7070963571c7df9ea7c29c04544f08a8721954cb47bc0b00c811c82b94f51",
+    "NOTICE.md": "44abde9b52a1d2d991d89305e3f56962850241a649a64cc9a945b7224d7d1b8e",
+    "README.md": "8e71ae9efcde5c8081f2a09239a1408d2676746d6d773690ecd0fb5649aa261e",
+    "SECURITY.md": "5f85ab041e2dc2784148224bcf3c49a7390a65660e9f1899cccbaa1240c72067",
+    "VALIDATION.md": "7f85ecc899b1f3d4883598cf01959b9687e13d4b9753787d59508041b8fc62c2",
+    "demo/console-preview.jpg": "6406c53d27b50914164ad031596a03942e21119adfaa7e8d97c5e22009d5acd2",
+    "demo/index.html": "3344cd65d4f4ca10a501c51e740dc44b9d39916cf7fde43198a1cd6ce6d240ab",
+    "demo/style.css": "8a48a5d12dccc5bb86aa53018b9a9d20ce699fdf8b776140561a4de55ea05bf8",
+    "licenses/lucide.txt": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57",
+    "licenses/manrope.txt": "58172e0c0fac2cda8a37b348164bb55e44b0e69051e557e92b1d3f6910141f7b"
+  },
+  "scope": "Static Community presentation and simulated screenshot; no executable console/agent",
+  "license": "MIT plus preserved third-party notices",
+  "real_java_validated": false
+}
