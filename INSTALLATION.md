@@ -2,17 +2,22 @@
 
 **Your server. Less babysitting.** Une console locale pour un petit serveur Minecraft Java Docker existant : état, joueurs via Server List Ping, logs, start/stop/restart confirmés, sauvegardes cohérentes, restauration, rétention et alertes locales. Self-hosted gratuit sous MIT ; cloud envisagé à 4,99 €/serveur/mois, non disponible et non encaissable.
 
-Candidat exécuté sur une fixture Docker jetable, **sans binaire Minecraft ni acceptation d’EULA**. La compatibilité avec un vrai serveur autorisé reste à valider. La recette de fixture prouve des opérations isolées ; elle ne valide pas Java réel.
+Candidat exécuté sur une fixture Docker jetable, **sans binaire Minecraft ni acceptation d’EULA**. La recette de fixture prouve des opérations isolées ; elle ne valide pas Java réel.
+La recette Java réelle est différée par décision du propriétaire du 13 octobre
+2026. Aucun essai terrain ni demande de cible n’est actif ; le protocole
+[VALIDATION.md](VALIDATION.md) est conservé pour une éventuelle reprise explicite.
 
 ## Premier essai isolé (FR)
 
 Prérequis : Docker Engine/Compose, Python 3.12+ pour les scripts locaux, port 4218 libre. Depuis une copie fraîche de ce dossier :
 
 ```sh
-python3 scripts/seed_fixture.py
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python scripts/seed_fixture.py
 export BLOCKOPS_UID=$(id -u) BLOCKOPS_GID=$(id -g)
 docker compose -f compose.fixture.yml up -d --build
-python3 scripts/verify_fixture.py
+.venv/bin/python scripts/verify_fixture.py
 ```
 
 Ouvrir http://127.0.0.1:4218 : utilisateur `qa`, mot de passe dans le fichier local `secrets/qa-password` (ou `viewer` pour la lecture seule). La recette remplace uniquement `world/level.dat` de la fixture nommée `blockops-fixture`. Elle vérifie un SHA-256 exact après restauration, une copie de sécurité et le serveur laissé arrêté, puis redémarre la fixture. Ne pas utiliser ces comptes jetables en production.
@@ -106,39 +111,27 @@ VERIFY_REPORT=evidence/local-fixture-verification.json FIXTURE_TRANSPORT=local \
   .venv/bin/python scripts/verify_fixture.py
 ```
 
-Les captures `current-*` correspondent à cette recette locale signalée dans l’interface. Les captures `desktop-*` et `fixture-verification.json` documentent le premier candidat testé dans les conteneurs Docker. La preuve du rebuild Docker **final** reste en attente de disponibilité du daemon partagé.
+La capture `assets/console-preview.jpg` correspond à une fixture simulée,
+signalée dans l’interface. Aucun build Docker courant ni essai Java réel
+n’est validé par cette capture.
 
 Pour les contrôles de développement : installer `requirements-dev.txt` dans le venv, puis `.venv/bin/mypy --strict blockops`. Les cinq modules applicatifs passent le typage strict ; `Any` reste explicite aux frontières JSON dont les champs sensibles sont validés. Les scripts de recette ne font pas partie du runtime applicatif.
 
-## Recette de livraison et pilote
+## Vérifications et limites
 
-Le backup vérifie maintenant que l’arrêt est effectif et refuse un code 137 (kill forcé), sans relancer automatiquement la cible après ce refus. Inspecter les logs et la gestion de l’arrêt avant nouvel essai. Cela ne remplace pas la validation de sauvegarde sur un vrai serveur Java.
+Le dépôt contient les outils et tests utilisés par la fixture. Depuis un venv
+préparé : `.venv/bin/python -m unittest discover -s tests -v`. Pour une recette
+complète du transport simulé, utiliser les trois processus locaux et la commande
+`verify_fixture.py` ci-dessus, uniquement sur la fixture nouvellement créée.
+Arrêter ensuite ces seuls processus. Les données de test restent locales.
 
-```sh
-# Après génération du pack : installation fraîche, transport simulé privé,
-# ports éphémères et arrêt uniquement des processus créés par ce script.
-.venv/bin/python scripts/verify_archive.py
-```
+Le contrôle facultatif `scripts/verify_archive.py` attend une archive distincte,
+qui n’est pas embarquée dans le dépôt. Ne pas l’exécuter sans fournir son option
+`--archive` avec un paquet Community vérifié ; ce n’est pas une étape nécessaire
+au premier essai du dépôt.
 
-Cette recette mesure le démarrage automatisé de QA et la restauration ; elle ne mesure pas le temps d’installation d’un opérateur et ne valide ni Docker ni Minecraft. Les fichiers jetables restent dans `state/archive-check/`, ignorés par Git.
-
-Dans ce workspace coordonné, `scripts/verify_docker_release.py` refuse le rebuild tant que DockStart n’a pas déclaré l’infrastructure `ready`, autorisé les builds et laissé au moins 8 Gio libres. Il prend le verrou partagé, rebuilde uniquement `blockops-qa`, contrôle lifecycle/restauration, proxy et présence du PNG courant. Un utilisateur hors orchestration utilise les commandes Docker du premier essai ci-dessus.
-
-Le protocole opérateur est dans `launch/PILOT.md` et le protocole Java réel dans `launch/JAVA_TEST.md`. Modèle de cinq places non recrutées : `launch/pilot-template.csv`. Conserver les résultats remplis dans `state/`, pas dans Git. Coûts de support = minutes observées × taux horaire hypothétique ; aucune demande cloud ou vente n’est déduite des fixtures.
-
-## Domaine et contact confirmés
-
-Support : `contact@hugoviaud.fr`. Domaine prévu : `blockops.altorru.fr` sur l’apex propriétaire `altorru.fr` (Cloudflare). Le compte dédié VPS est vérifié et la vitrine statique avec éditeur confirmé est activée dans sa seule racine web, avec placeholder sauvegardé en privé. Vitrine publique https://blockops.altorru.fr vérifiée en HTTPS après DNS/TLS centralisés : neuf SHA exacts, chemins sensibles refusés, rendu responsive contrôlé. Console et agent restent privés. Voir `launch/DOMAIN_PLAN.md` et `launch/STATIC_RELEASE.md`. La console et l’agent restent privés ; ce domaine ne constitue pas un service cloud disponible. Aucun email de test ou message externe envoyé.
-
-La vitrine est exportée sans build par `scripts/package_static.py`, avec un
-manifeste SHA-256 et sans fichiers de contrôle applicatif. La comparaison
-complète en lecture seule pour une future recette Java est préparée dans
-`scripts/check_java_restore.py` et `launch/java-verification-template.json`.
-
-## Guide public et préparation Java
-
-Le guide /guide.html publie un aperçu explicitement simulé et le protocole de copie/restauration ; aucun contrôle serveur en ligne. Sitemap/robots et canonical ajoutés, aucun tracker. La référence technique de la cible Java autorisée reste à fournir : launch/JAVA_ENVIRONMENT.md et scripts/preflight_java.py vérifient bind/réseau/EULA existante en lecture seule, sans démarrage ni acceptation. Kit pilote et brouillons sans envoi : launch/ACQUISITION_KIT.md.
-
-## Distribution Community
-
-Point d’entrée : `launch/COMMUNITY.md`. Le paquet privé réunit runtime, installation, fixture, préflight et protocoles Java ; aucun recrutement pilote requis pour le préparer. `scripts/package_community.py` produit une archive immuable au commit exact et une liste SHA de tous les fichiers, sans secrets/monde/backups/preuves historiques. Le logiciel reste candidat, gratuit MIT et sans validation Minecraft réelle.
+La démo publique est https://blockops.altorru.fr/guide.html ; elle ne contrôle
+aucun serveur. Support : contact@hugoviaud.fr, sans monde, secret ou log de joueur
+à joindre. Voir [README.md](README.md), [SECURITY.md](SECURITY.md) et
+[VALIDATION.md](VALIDATION.md). Aucun recrutement, essai terrain ou paiement
+n’est demandé par ce guide.

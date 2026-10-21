@@ -72,10 +72,12 @@ payment is available. See VALIDATION.md, NOTICE.md and SECURITY.md.
 
 ## Premier essai du produit / Product quickstart
 
-Prérequis : Python 3.12+ et Docker Engine/Compose pour la fixture Docker.
-Dans une copie fraîche du dépôt, jamais un dossier monde existant :
+Prérequis : Git, Python 3.12+ et Docker Engine/Compose pour la fixture Docker.
+Cloner dans un nouveau dossier, jamais un dossier monde existant :
 
 ```sh
+git clone https://github.com/Altorru/blockops-community.git
+cd blockops-community
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python -m unittest discover -s tests -v
